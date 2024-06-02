@@ -1,12 +1,13 @@
-//O arquivo.txt precisa existir na sua maquina.
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#define NUMERO_MAXIMO_NOME 50
+#define NUMERO_MAXIMO_CARGO 50
+
 typedef struct {
-    char nome[50];
-    char cargo[50];
+    char nome[NUMERO_MAXIMO_NOME];
+    char cargo[NUMERO_MAXIMO_CARGO];
     int idade;
     double salario;
 }Funcionario;
@@ -102,12 +103,12 @@ void removerCadastro() {
 
     escreverTodosOsCadastros(funcionarios, quantidadeCadastro);
     free(funcionarios);
-    printf("Cadastro removido com sucesso!\n");
+    printf("Cadastro removido com sucesso!.\n");
 }
 
 int desejaContinuar() {
     int resposta;
-    printf("Deseja realizar outra operacao?: (1 = sim) (2 = nao)\n");
+    printf("Deseja realizar outra operacao?: (1 = Sim) (2 = Nao).\n");
     scanf("%d", &resposta);
     
     while(getchar() != '\n');
@@ -129,7 +130,7 @@ int main(void) {
         printf("Escolha uma opcao:\n");
         printf("1 - Realizar Cadastro.\n");
         printf("2 - Ler Cadastros.\n");
-        printf("3 - Remover Cadastro(s).\n");
+        printf("3 - Remover Cadastro.\n");
 
         if(scanf("%d", &opcaoCadastro) != 1) {
             printf("Opcao Invalida.\n");

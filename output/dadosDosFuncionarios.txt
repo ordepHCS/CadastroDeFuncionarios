@@ -1,10 +1,5 @@
 Nome: Pedro
-Idade: 42
-Cargo: sfe
-Salario: 424.00
-
-Nome: Leila
-Idade: 24
-Cargo: RH
-Salario: 4000.00
+Idade: 19
+Cargo: TI
+Salario: 3000.00
 
