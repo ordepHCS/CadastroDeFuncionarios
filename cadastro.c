@@ -106,6 +106,74 @@ void removerCadastro() {
     printf("Cadastro removido com sucesso!.\n");
 }
 
+void modificarCadastro() {
+    Funcionario *funcionarios;
+    int quantidadeCadastro = lerTodosOsCadastros(&funcionarios);
+    if(quantidadeCadastro == 0) {
+        printf("Nao ha cadastros para modificar.\n");
+        return;
+    }
+    printf("Cadastros disponiveis:\n");
+    for(int indiceCadastro = 0; indiceCadastro < quantidadeCadastro; indiceCadastro++) {
+        printf("%d - Nome: %s, Idade: %d, Cargo: %s, Salario: %.2lf\n", indiceCadastro + 1, funcionarios[indiceCadastro].nome, funcionarios[indiceCadastro].idade, funcionarios[indiceCadastro].cargo, funcionarios[indiceCadastro].salario);
+    }
+    int indiceParaModificar;
+
+    printf("Digite o numero do cadastro que deseja modificar:\n");
+    if(scanf("%d", &indiceParaModificar) != 1 || indiceParaModificar < 1 || indiceParaModificar > quantidadeCadastro) {
+        printf("Indice invalido.\n");
+        free(funcionarios);
+        return;
+    }
+    getchar();
+    indiceParaModificar--;
+
+    printf("Modificando cadastro %d:\n", indiceParaModificar + 1);
+    
+    //Para modificar o nome.
+    printf("Digite o novo nome (ou pressione enter para manter o atual: %s):", funcionarios[indiceParaModificar].nome);
+
+    char nome[NUMERO_MAXIMO_NOME];
+    
+    fgets(nome, sizeof(nome), stdin);
+    if(nome[0] != '\n') {
+        nome[strcspn(nome, "\n")] = '\0';
+        strcpy(funcionarios[indiceParaModificar].nome,nome);
+    }
+    //Para modificar a idade.
+    printf("Digite a nova idade (ou pressione enter para manter a atual idade: %d):", funcionarios[indiceParaModificar].idade);
+
+    char idadeString[10];
+
+    fgets(idadeString, sizeof(idadeString), stdin);
+    if(idadeString[0] != '\n') {
+        funcionarios[indiceParaModificar].idade = atoi(idadeString);
+    }
+    //Para modificar o cargo.
+    printf("Digite o novo cargo (ou pressione enter para manter o cargo atual: %s):", funcionarios[indiceParaModificar].cargo);
+
+    char cargo[NUMERO_MAXIMO_CARGO];
+
+    fgets(cargo, sizeof(cargo), stdin);
+    if(cargo[0] != '\n') {
+        cargo[strcspn(cargo, "\n")] = '\0';
+        strcpy(funcionarios[indiceParaModificar].cargo, cargo);
+    }
+    //Para modificar o salario.
+    printf("Digite o novo salario (ou pressione enter para manter o atual salario: %.2lf):", funcionarios[indiceParaModificar].salario);
+
+    char salarioString[20];
+
+    fgets(salarioString, sizeof(salarioString), stdin);
+    if(salarioString[0] != '\n') {
+        funcionarios[indiceParaModificar].salario = atof(salarioString);
+    }
+    
+    escreverTodosOsCadastros(funcionarios, quantidadeCadastro);
+    free(funcionarios);
+    printf("Cadastro modificado com sucesso!.\n");
+}
+
 int desejaContinuar() {
     int resposta;
     printf("Deseja realizar outra operacao?: (1 = Sim) (2 = Nao).\n");
@@ -130,7 +198,8 @@ int main(void) {
         printf("Escolha uma opcao:\n");
         printf("1 - Realizar Cadastro.\n");
         printf("2 - Ler Cadastros.\n");
-        printf("3 - Remover Cadastro.\n");
+        printf("3 - Modificar Cadastro.\n");
+        printf("4 - Remover Cadastro.\n");
 
         if(scanf("%d", &opcaoCadastro) != 1) {
             printf("Opcao Invalida.\n");
@@ -185,6 +254,9 @@ int main(void) {
                 lerCadastros();
                 break;
             case 3:
+                modificarCadastro();
+                break;
+            case 4:
                 removerCadastro();
                 break;
             default:
