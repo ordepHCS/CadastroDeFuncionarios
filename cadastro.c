@@ -168,7 +168,7 @@ void modificarCadastro() {
     if(salarioString[0] != '\n') {
         funcionarios[indiceParaModificar].salario = atof(salarioString);
     }
-    
+
     escreverTodosOsCadastros(funcionarios, quantidadeCadastro);
     free(funcionarios);
     printf("Cadastro modificado com sucesso!.\n");
@@ -223,9 +223,15 @@ int main(void) {
 
                 for(int indiceCadastro = 0; indiceCadastro < quantidadeCadastros; indiceCadastro++) {
                     printf("Cadastro %d:\n", indiceCadastro + 1);
+                    
                     printf("Digite seu nome:\n");
                     fgets(funcionarios[indiceCadastro].nome, sizeof(funcionarios[indiceCadastro].nome), stdin);
                     funcionarios[indiceCadastro].nome[strcspn(funcionarios[indiceCadastro].nome, "\n")] = '\0';
+                    if(strlen(funcionarios[indiceCadastro].nome) == 0) {
+                        printf("Nome nao pode ser vazio.\n");
+                        free(funcionarios);
+                        return 1;
+                    }
 
                     printf("Digite sua idade:\n");
                     if (scanf("%d", &funcionarios[indiceCadastro].idade) != 1) {
@@ -238,7 +244,12 @@ int main(void) {
                     printf("Digite seu cargo:\n");
                     fgets(funcionarios[indiceCadastro].cargo, sizeof(funcionarios[indiceCadastro].cargo), stdin);
                     funcionarios[indiceCadastro].cargo[strcspn(funcionarios[indiceCadastro].cargo, "\n")] = '\0';
-
+                    if(strlen(funcionarios[indiceCadastro].cargo) == 0) {
+                        printf("Cargo nao pode ser vazio.\n");
+                        free(funcionarios);
+                        return 1;
+                    }
+                    
                     printf("Digite seu salario:\n");
                     if (scanf("%lf", &funcionarios[indiceCadastro].salario) != 1) {
                         printf("Entrada invalida para salario.\n");
